@@ -12,6 +12,16 @@
 			<p>Catégorie :
 				{{ program.category.name }}</p>
 		</div>
+		<ul>
+			{% for actor in program.actors %}
+				<a href="{{ path("actor_show", { id: actor.id }) }}">
+					<li>{{ actor.name }}
+					</li>
+				</a>
+			{% else %}
+				<li>Aucun acteur pour cette série</li>
+			{% endfor %}
+		</ul>
 		{% for season in seasons %}
 			<div>
 				<a href="{{ path('program_season_show', { program_id: program.id, season_id: season.id}) }}">

@@ -39,7 +39,7 @@ class SeasonController extends AbstractController
             $entityManager->persist($season);
             $entityManager->flush();
 
-            return $this->redirectToRoute('season');
+            return $this->redirectToRoute('program_index');
         }
 
         return $this->render('season/new.html.twig', [
