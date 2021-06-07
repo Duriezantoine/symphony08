@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
@@ -21,6 +22,7 @@ class Category
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Assert\NotBlank()
      */
     private $name;
 
@@ -60,9 +62,9 @@ class Category
     }
 
     /**
-    * @param Program $program
-    * @return Category
-    */
+     * @param Program $program
+     * @return Category
+     */
     public function addProgram(Program $program): self
     {
         if (!$this->programs->contains($program)) {
@@ -71,9 +73,9 @@ class Category
         }
 
         return $this;
-  }
+    }
 
-  /**
+    /**
      * @param Program $program
      * @return Category
      */
@@ -81,14 +83,13 @@ class Category
     public function removeProgram(Program $program): self
     {
         if ($this->programs->contains($program)) {
-                  $this->programs->removeElement($program);
-                  // set the owning side to null (unless already changed)
-                  if ($program->getCategory() === $this) {
-                      $program->setCategory(null);
-                  }
-         }
+            $this->programs->removeElement($program);
+            // set the owning side to null (unless already changed)
+            if ($program->getCategory() === $this) {
+                $program->setCategory(null);
+            }
+        }
 
-         return $this;
+        return $this;
     }
-
 }
