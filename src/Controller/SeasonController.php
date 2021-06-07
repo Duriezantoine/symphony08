@@ -39,7 +39,7 @@ class SeasonController extends AbstractController
             $entityManager->persist($season);
             $entityManager->flush();
 
-            return $this->redirectToRoute('season_index');
+            return $this->redirectToRoute('season');
         }
 
         return $this->render('season/new.html.twig', [
@@ -83,7 +83,7 @@ class SeasonController extends AbstractController
      */
     public function delete(Request $request, Season $season): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$season->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $season->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($season);
             $entityManager->flush();

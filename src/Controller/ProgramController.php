@@ -14,8 +14,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-
 use Symfony\Component\HttpFoundation\Request;
+
+
 
 
 
@@ -57,7 +58,7 @@ class ProgramController extends AbstractController
      * @Route("/new", name="new")
 
      */
-    public function new(): Response
+    public function new(Request $request): Response
 
     {
 
@@ -68,10 +69,19 @@ class ProgramController extends AbstractController
         // Create the associated Form
 
         $form = $this->createForm(ProgramType::class, $program);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($program);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('program_index');
+        }
 
         // Render the form
 
         return $this->render('program/new.html.twig', [
+            'program' => $program,
 
             "form" => $form->createView(),
 
