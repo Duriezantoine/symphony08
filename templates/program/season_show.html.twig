@@ -1,27 +1,31 @@
-
-{% extends 'base.html.twig' %}
-{% block title %} {{ program.title }} Season #{{ season.id }}{% endblock %}
+{% extends "base.html.twig" %}
+{% block title %}Saison #{{ season.id }}
+{% endblock %}
 
 {% block body %}
+	<div class="text-center m-3">
+		<h2>Saison
+			{{ season.number }}</h2>
+		<p>Annee:
+			{{ season.year }}</p>
+		<p>{{ season.description }}</p>
+		<h2>Liste des épisodes</h2>
 
-<div class="media">
-  <div class="media-body">
-    <h1 class="mt-0">{{ program.title }}</br>
-    Season  {{ season.number }} ,{{season.year }}</h1>
-  </div>
-  {% for episode in episodes %}
-        <div>
-            <h2>Episode {{ episode.number }}: {{ episode.title }}</h2>
-              
-        </div>
-    {% else %}
-        Aucune episodes trouvés.
-    {% endfor %}
-</div>
-{#<a href="{{ path('show_episode') }}"
-    Show episode
-</a>#}
-<a href="{{ path('program_index') }}">
-    Retour à la liste des programmes
-</a>
+	</div>
+	<ul class="list-group text-center">
+		{% for episode in episodes %}
+			<a href="{{ path("program_episode_show", { program_id: program.id, season_id: season.id, episode_id: episode.id }) }}">
+				<li class="list-group-item m-3">Episode
+					{{ episode.number }}
+					:
+					{{ episode.title }}</li>
+			</a>
+			<p>{{ episode.synopsis }}</p>
+		{% else %}
+			<li class="list-group-item ">Aucun épisode trouvé.</li>
+		{% endfor %}
+		<a href="{{ path("program_show", { id: program.id }) }}">
+			Retour à la fiche du programme
+		</a>
+	</ul>
 {% endblock %}

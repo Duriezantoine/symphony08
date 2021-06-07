@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+{% block title %}Episode #{{ episode.number }}
+{% endblock %}
+
+{% block body %}
+	<div class="text-center m-5">
+		<h1>{{ program.title }}</h1>
+		<h2>Saison
+			{{ season.number }}</h2>
+		<p>Episode
+			{{ episode.number }}
+			/
+			{{ episode.title }}</p>
+		<p>{{ episode.synopsis }}</p>
+	</div>
+{% endblock %}
